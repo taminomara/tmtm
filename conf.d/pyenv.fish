@@ -1,4 +1,4 @@
-if command -sq pyenv
+if command -sq pyenv && command pyenv --version &>/dev/null
     pyenv init - fish | source
 
     functions -c pyenv _orig_pyenv

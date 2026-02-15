@@ -22,8 +22,12 @@ function _gen_fish_venv_prompt
     set color_venv "$(set_color normal)$(set_color $fish_color_venv)"
 
     if test -n "$VIRTUAL_ENV"
-        echo -n "$color_normal$color_venv"(basename "$VIRTUAL_ENV")
-    else if command -sq pyenv
+        set venv (basename "$VIRTUAL_ENV")
+        if test "$venv" = ".venv"
+            set venv (basename (dirname "$VIRTUAL_ENV"))
+        end
+        echo -n "$color_normal$color_venv$venv"
+    else if command -sq pyenv && command pyenv --version &>/dev/null
         set venv_name "$(command pyenv version-name)"
         set global_venv_name "$(command pyenv global)"
 
